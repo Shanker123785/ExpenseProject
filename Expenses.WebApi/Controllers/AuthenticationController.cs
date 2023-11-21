@@ -42,23 +42,6 @@ namespace Expenses.WebApi.Controllers
                 return StatusCode(401, e.Message);
             }
         }
-        [HttpPost("google")]
-        public async Task<ActionResult> GoogleSignIn([FromQuery] string token)
-        {
-            var payload = await ValidateAsync(token, new ValidationSettings
-            {
-                Audience = new[]
-                {
-                    Environment.GetEnvironmentVariable("CLIENT_ID")
-                }
-            });
-            var result = await _userService.ExternalSignIn(new User
-            {
-                Email = payload.Email,
-                ExternalId = payload.Subject,
-                ExternalType = "GOOGLE"
-            });
-            return Created("", result);
-        }
+       
     }
 }

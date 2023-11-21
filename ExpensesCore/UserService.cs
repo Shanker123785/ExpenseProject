@@ -23,29 +23,7 @@ namespace Expenses.Core
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<AuthenticatedUser> ExternalSignIn(User user)
-        {
-            try
-            {
-
-            var dbUser = await _context.Users
-                .FirstOrDefaultAsync(u => u.ExternalId.Equals(user.ExternalId) && u.ExternalType.Equals(user.ExternalType));
-            if(dbUser == null)
-            {
-                user.Username = CreateUniqueUsernameFromEmail(user.Email);
-                return await SignUp(user);
-            }
-            return new AuthenticatedUser()
-            {
-                Username = dbUser.Username,
-                Token = JwtGenerator.GenerateUserToken(dbUser.Username)
-            };
-            }
-            catch(Exception ex)
-            {
-                return null;
-            }
-        }
+      
 
         public async Task<AuthenticatedUser> SignIn(User user)
         {

@@ -29,7 +29,7 @@ builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type => type.ToString());
-});                                                    // had issue with expenses dto and expenses, this solved it. remove and try running . swagger wont run.
+});                                                    
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ExpensesPolicy",
