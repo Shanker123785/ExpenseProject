@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Expenses.WebApi.Controllers
 {
-    [Authorize]
-    [ApiController]
+    
+   
     [Route("[controller]")]
+    [ApiController]
+    [Authorize]
     public class ExpensesController : ControllerBase
     {
         private IExpensesServices _expensesServices;
@@ -28,9 +30,7 @@ namespace Expenses.WebApi.Controllers
         [HttpPost]
         public IActionResult CreateExpense(DB.Expense expense)
          {
-            //Here we cant return ok (200),  we return 201, as we return a new 
-            //object newExpense
-            //Also we return using GetExpense(id)[httpget] hence the kind of return below
+          
             var newExpense = _expensesServices.CreateExpense(expense);
             return CreatedAtRoute("GetExpense", new { newExpense.Id }, newExpense);
         }
